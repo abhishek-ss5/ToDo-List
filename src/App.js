@@ -1,10 +1,25 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import ToDoItems from "./ToDoItems";
 import InputForm from "./InputForm";
 
+const getDataFromLocalStorage = ()=>{
+  const LIST = localStorage.getItem("LIST");
+
+  if(LIST){
+    return JSON.parse(localStorage.getItem("LIST"));
+  }
+  else{
+    return [];
+  }
+}
+
 function App() {
 
-  const [list, setList] = useState([])
+  const [list, setList] = useState(getDataFromLocalStorage)
+
+  useEffect(()=>{
+    localStorage.setItem("LIST" , JSON.stringify(list));
+  } , [list] );
 
 
   // function handleClick() {
